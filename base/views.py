@@ -1,11 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+rooms = [
+    {
+        'id':1,'name':'Lean Python'
+    },
+    {
+        'id':2,'name':'Lean Flutter'
+    },
+    {
+        'id':3,'name':'Lean SQL'
+    },
+]
 
 def homePage(request):
-    return HttpResponse('Home Page')
+    return render(request, 'home.html')
 
 def roomPage(request):
-    return HttpResponse('Room Page')
+    return render(request, 'room.html')
 
 def profilePage(request):
-    return HttpResponse('Profile Page')
+    return render(request, 'profile.html')

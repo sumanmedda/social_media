@@ -1,22 +1,37 @@
-from django.shortcuts import render
-
-rooms = [
-    {
-        'id':1,'name':'Lean Python'
-    },
-    {
-        'id':2,'name':'Lean Flutter'
-    },
-    {
-        'id':3,'name':'Lean SQL'
-    },
-]
+from django.shortcuts import render,redirect
+from .models import Room
+from .forms import RoomForm
 
 def homePage(request):
-    return render(request, 'home.html')
+    rooms = Room.objects.all()
+    context = {'rooms':rooms}
+    return render(request, 'base/home.html',context)
 
-def roomPage(request):
-    return render(request, 'room.html')
+def roomPage(request,pk):
+    rooms = Room.objects.get(id=pk)
+    context = {'room':rooms}
+    return render(request, 'base/room.html',context)
 
-def profilePage(request):
-    return render(request, 'profile.html')
+def profilePage(request,pk):
+    return render(request,'profile.html')
+
+def createRoom(request):
+    form = RoomForm()
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('home')
+    context = {'form':form}
+    return render(request,'base/room_form.html',context)
+
+def updateRoom(request,pk):
+    room = Room.objects.get(id=pk)
+    form = RoomForm(instance=room)
+    if request.method == 'POST':
+        form = RoomForm(request.POST,instance=room)
+        if form.is_valid:
+            form.save()
+            return redirect('home')
+    context = {'form':form}
+    return render(request,'base/room_form.html',context)

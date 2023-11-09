@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
-
+# pk = primary key
 urlpatterns = [
     path('', views.homePage, name="home"),
-    path('room/', views.roomPage,name='room'),
-    path('profile/', views.profilePage,name='profile'),
+    path('room/<str:pk>', views.roomPage,name='room'),
+    path('profile/<str:pk>', views.profilePage,name='profile'),
+    path('create-room/', views.createRoom,name='create-room'),
+    path('update-room/<str:pk>', views.updateRoom,name='update-room'),
 ]

@@ -5,6 +5,7 @@ urlpatterns = [
     # auth page
     path('login/',views.loginPage,name='login'),
     path('logout/',views.logoutUser,name='logout'),
+    path('register/',views.registerPage,name='register'),
     # home page
     path('', views.homePage, name="home"),
     # cruds of room

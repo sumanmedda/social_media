@@ -13,18 +13,7 @@
 <div class="home-container">
     {% comment %} side bar {% endcomment %}
     <div>
-        <h3>
-            Browse Topics
-        </h3>
-        <hr>
-        <div>
-            <a href="{% url 'home' %}">All</a>
-        </div>
-        {% for topic in topics %}
-            <div>
-                <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-            </div>
-        {% endfor %}
+       {% include 'base/topics_component.html' %}
     </div>
     {% comment %} Body part {% endcomment %}
     <div>
@@ -35,24 +24,7 @@
         {% comment %} create room {% endcomment %}
         <a href="{% url 'create-room' %}">Create Room</a>
         <hr>
-        <div>
-            {% comment %} read rooms {% endcomment %}
-            {% for room in rooms %}
-            <div>
-                {% comment %} if user is not authenticated then dont show buttons {% endcomment %}
-                {% if request.user == room.host %}
-                {% comment %} update room {% endcomment %}
-                <a href="{% url 'update-room' room.id %}">Edit</a>
-                {% comment %} delete room {% endcomment %}
-                <a href="{% url 'delete-room' room.id %}">Delete</a>
-                {% endif %}
-                <span>@{{room.host.username}}</span>
-                <h5>{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
-                <small>{{room.topic.name}}</small>
-                <hr>
-            </div>
-            {% endfor %}
-        </div>
+        {% include 'base/feed_component.html' %}
     </div>
 
     {% comment %} latest feed {% endcomment %}

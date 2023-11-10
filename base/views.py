@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RoomForm
 from django.http import HttpResponse
@@ -71,8 +71,18 @@ def homePage(request):
     return render(request, 'base/home.html',context)
 
 def roomPage(request,pk):
-    rooms = Room.objects.get(id=pk)
-    context = {'room':rooms}
+    room = Room.objects.get(id=pk)
+    roommessages = room.message_set.all().order_by('-created')
+    
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user = request.user,
+            room=room
+            body=request.get('body')
+        )
+        return redirect('room',pk=room.id)
+    
+    context = {'room':room,'roommessages':roommessages}
     return render(request, 'base/room.html',context)
 
 @login_required(login_url='login')

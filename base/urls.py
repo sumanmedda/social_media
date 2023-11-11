@@ -17,4 +17,6 @@ urlpatterns = [
     path('delete-message/<str:pk>', views.deleteMessage,name='delete-message'),
     # profile oage
     path('profile/<str:pk>', views.userProfile,name='user-profile'),
+    path('update-user/', views.updateUser,name='update-user'),
+    
 ]

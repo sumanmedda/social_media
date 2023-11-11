@@ -18,5 +18,9 @@ urlpatterns = [
     # profile oage
     path('profile/<str:pk>', views.userProfile,name='user-profile'),
     path('update-user/', views.updateUser,name='update-user'),
+    # topics
+    path('topics/', views.topicsPage,name='topics'),
+    # activity
+    path('activity/', views.activityPage,name='activity'),
     
 ]

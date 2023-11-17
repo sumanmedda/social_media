@@ -1,0 +1,9 @@
+version : '3.12'
+
+services:
+  base:
+    image: base:0.0.1
+    build: .
+    ports:
+      - "8000:8000"
+    
